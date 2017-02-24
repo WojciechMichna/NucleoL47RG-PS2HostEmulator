@@ -1,0 +1,13 @@
+Debug/
+Release/
+.settings/
+
+*.elf
+*.bin
+*.o
+*.d
+*.mk
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
