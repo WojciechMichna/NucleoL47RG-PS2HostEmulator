@@ -105,8 +105,8 @@ uint8_t special = 0;
 void decodeToMainUart(uint8_t c){
 
 	if(0xF0 == c){
-		char* send ="UP\r\n";
-		HAL_UART_Transmit(&huart2,send,4,500);
+		char* send ="BTN-UP\r\n";
+		HAL_UART_Transmit(&huart2,send,8,500);
 	}else if(0xE0 == c){
 		char* send ="SPECIAL\r\n";
 		HAL_UART_Transmit(&huart2,send,9,500);
