@@ -58,48 +58,6 @@ static void MX_USART2_UART_Init(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
-/*
-void sendCharToMainUart(uint8_t c){
-	char send [8];
-	int n = snprintf(send,8,"0x%x\r\n",c);
-
-	HAL_UART_Transmit(&huart2,send,n,500);
-}
-*/
-#define KEYINITIALIZER(KEY,KEYCODE,SPECIAl){#KEY,KEYCODE,SPECIAl}
-
-
-typedef struct
-{
-	const char* keysign;
-	uint8_t keycode;
-	uint8_t special;
-} _keycode ;
-const _keycode  keycodetable[] = {
-		KEYINITIALIZER(7,0x6C,0x00),
-		KEYINITIALIZER(8,0x75,0x00),
-		KEYINITIALIZER(9,0x7D,0x00),
-		KEYINITIALIZER(4,0x6B,0x00),
-		KEYINITIALIZER(5,0x73,0x00),
-		KEYINITIALIZER(6,0x74,0x00),
-		KEYINITIALIZER(1,0x69,0x00),
-		KEYINITIALIZER(2,0x72,0x00),
-		KEYINITIALIZER(3,0x7A,0x00),
-		KEYINITIALIZER(0,0x2D,0x00),
-		KEYINITIALIZER(00,0x1B,0x00),
-		KEYINITIALIZER(NKW,0x44,0x00),
-		KEYINITIALIZER(ENT,0x22,0x00),
-		KEYINITIALIZER(RAZ,0x31,0x00),
-		KEYINITIALIZER(SPC,0x15,0x00),
-		KEYINITIALIZER(KAT,0x24,0x00),
-		KEYINITIALIZER(SER,0x5A,0x00),
-		KEYINITIALIZER(SEM,0x71,0x00),
-		KEYINITIALIZER(DWN,0x79,0x00),
-		KEYINITIALIZER(MEN,0x76,0x00),
-		KEYINITIALIZER(FOT,0x3A,0x00),
-		KEYINITIALIZER(UP,0x6B,0x01),
-		KEYINITIALIZER(CLR,0x69,0x01)
-};
 
 uint8_t special = 0;
 void decodeToMainUart(uint8_t c){
@@ -112,16 +70,11 @@ void decodeToMainUart(uint8_t c){
 		HAL_UART_Transmit(&huart2,send,9,500);
 		special = 1;
 	}else{
-		for(int i = 0 ; i < sizeof(keycodetable)/sizeof(*keycodetable) ; i++){
-			if(keycodetable[i].keycode == c && keycodetable[i].special == special){
-				HAL_UART_Transmit(&huart2,(uint8_t*)keycodetable[i].keysign,strlen(keycodetable[i].keysign),500);
-				HAL_UART_Transmit(&huart2,"\r\n",2,500);
-			}
-		}
+		char send [8];
+		int n = snprintf(send,8,"0x%x\r\n",c);
+		HAL_UART_Transmit(&huart2,send,n,500);
 		special = 0;
 	}
-
-
 }
 /* USER CODE END 0 */
 
